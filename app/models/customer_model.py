@@ -18,7 +18,7 @@ class Customer(models.Model):
     name = models.CharField(max_length=100)
     city = models.CharField(max_length=100)
     locality = models.CharField(max_length=100)
-    zipcode = models.IntegerField(max_length=100)
+    zipcode = models.IntegerField()
     division = models.CharField(choices=DIVISIONS, max_length=100)
 
     def __str__(self):
