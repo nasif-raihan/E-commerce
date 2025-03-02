@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 
-from .base_selector import BaseSelector
+from ..utils import BaseSelector
 from ..models import Order
 
 

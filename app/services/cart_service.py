@@ -3,7 +3,7 @@ from typing import Dict
 
 from django.contrib.auth.models import User
 
-from .base_service import BaseService
+from ..utils import BaseService
 from ..models import Cart
 
 
