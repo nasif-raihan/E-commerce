@@ -1,0 +1,5 @@
+from .login_form import LoginForm
+from .registration_form import RegistrationForm
+from .set_user_password_form import SetUserPasswordForm
+from .user_password_change_form import UserPasswordChangeForm
+from .user_password_reset_form import UserPasswordResetForm
