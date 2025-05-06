@@ -18,7 +18,25 @@ class ProductAdmin(admin.ModelAdmin):
         "selling_price",
         "discounted_price",
         "product_image",
+        "created",
+        "modified",
     )
+    list_filter = ("category", "brand", "created")  # Filters in the sidebar
+    search_fields = ("title", "brand", "description")  # Search box
+    ordering = ("-created",)  # Default ordering
+    readonly_fields = ("created", "modified")  # Non-editable fields
+    fieldsets = (
+        (None, {
+            "fields": ("title", "category", "brand", "description")
+        }),
+        ("Pricing & Image", {
+            "fields": ("selling_price", "discounted_price", "product_image")
+        }),
+        ("Timestamps", {
+            "fields": ("created", "modified")
+        }),
+    )
+
 
 
 @admin.register(Order)
