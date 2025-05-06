@@ -1,5 +1,6 @@
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 from rest_framework import viewsets, status
+from rest_framework.decorators import action
 from rest_framework.response import Response
 
 from ..models import Product
@@ -20,6 +21,42 @@ class ProductViewSet(viewsets.ViewSet):
             OpenApiParameter(
                 name="page",
                 description="Page number for pagination. Type -1 to return all results without pagination.",
+                required=False,
+                type=int,
+            ),
+            OpenApiParameter(
+                name="category",
+                description="Filter products by category.",
+                required=False,
+                type=str,
+            ),
+            OpenApiParameter(
+                name="brand",
+                description="Filter products by brand.",
+                required=False,
+                type=str,
+            ),
+            OpenApiParameter(
+                name="selling_price_low",
+                description="Filter products by minimum selling price.",
+                required=False,
+                type=int,
+            ),
+            OpenApiParameter(
+                name="selling_price_high",
+                description="Filter products by maximum selling price.",
+                required=False,
+                type=int,
+            ),
+            OpenApiParameter(
+                name="discounted_price_low",
+                description="Filter products by minimum discounted price.",
+                required=False,
+                type=int,
+            ),
+            OpenApiParameter(
+                name="discounted_price_high",
+                description="Filter products by maximum discounted price.",
                 required=False,
                 type=int,
             ),
