@@ -26,17 +26,13 @@ class ProductAdmin(admin.ModelAdmin):
     ordering = ("-created",)  # Default ordering
     readonly_fields = ("created", "modified")  # Non-editable fields
     fieldsets = (
-        (None, {
-            "fields": ("title", "category", "brand", "description")
-        }),
-        ("Pricing & Image", {
-            "fields": ("selling_price", "discounted_price", "product_image")
-        }),
-        ("Timestamps", {
-            "fields": ("created", "modified")
-        }),
+        (None, {"fields": ("title", "category", "brand", "description")}),
+        (
+            "Pricing & Image",
+            {"fields": ("selling_price", "discounted_price", "product_image")},
+        ),
+        ("Timestamps", {"fields": ("created", "modified")}),
     )
-
 
 
 @admin.register(Order)
