@@ -1,7 +1,7 @@
 FROM python:3.12-slim-bullseye as requirements
 
 WORKDIR /app
-RUN pip3 install -U pip && pip3 install poetry
+RUN pip3 install -U pip && pip3 install poetry==1.8.3
 COPY pyproject.toml poetry.lock ./
 RUN poetry export --only main --format requirements.txt --output requirements.txt
 

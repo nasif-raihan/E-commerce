@@ -1,0 +1,66 @@
+name: Django CI Pipeline
+
+on:
+  push:
+    branches: [ main, staging ]
+  pull_request:
+    branches: [ main, staging ]
+
+env:
+  DATABASE_NAME: test_db
+  DATABASE_USER: postgres
+  DATABASE_PASSWORD: postgres
+  DJANGO_SETTINGS_MODULE: project.settings  # Adjust if different
+  ENVIRONMENT: test
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: ${{ env.DATABASE_NAME }}
+          POSTGRES_USER: ${{ env.DATABASE_USER }}
+          POSTGRES_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd="pg_isready -U ${{ env.DATABASE_USER }} -d ${{ env.DATABASE_NAME }}"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: Install Poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Wait for Postgres to be ready
+        run: |
+          until pg_isready -h localhost -U $DATABASE_USER -d $DATABASE_NAME; do
+            echo "Waiting for database..."
+            sleep 2
+          done
+
+      - name: Run Django migrations
+        run: python manage.py migrate
+
+      - name: Run tests
+        run: python manage.py test
+
+      - name: Run linter
+        run: black --check .
