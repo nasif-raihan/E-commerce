@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from django.contrib.auth.models import User
 
@@ -21,7 +20,7 @@ class CustomerService(BaseService):
         self.customer_instance.save()
         return self.customer_instance
 
-    def destroy(self) -> Dict[str, bool]:
+    def destroy(self) -> dict:
         if not self.customer_instance:
             raise RuntimeError("No customer instance provided")
 

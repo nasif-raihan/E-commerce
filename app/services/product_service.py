@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from django.contrib.auth.models import User
 
@@ -21,7 +20,7 @@ class ProductService(BaseService):
         self.product_instance.save()
         return self.product_instance
 
-    def destroy(self) -> Dict[str, bool]:
+    def destroy(self) -> dict:
         if not self.product_instance:
             raise RuntimeError("No product instance provided")
 

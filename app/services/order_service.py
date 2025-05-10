@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from django.contrib.auth.models import User
 
@@ -21,7 +20,7 @@ class OrderService(BaseService):
         self.order_instance.save()
         return self.order_instance
 
-    def destroy(self) -> Dict[str, bool]:
+    def destroy(self) -> dict:
         if not self.order_instance:
             raise RuntimeError("No order instance provided")
 

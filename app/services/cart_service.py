@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import Dict
 
 from django.contrib.auth.models import User
 
@@ -21,7 +20,7 @@ class CartService(BaseService):
         self.cart_instance.save()
         return self.cart_instance
 
-    def destroy(self) -> Dict[str, bool]:
+    def destroy(self) -> dict:
         if not self.cart_instance:
             raise RuntimeError("No cart instance provided")
 
